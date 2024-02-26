@@ -35,3 +35,11 @@
   font-weight: bold;
   cursor: pointer;
 }
+
+.active {
+  background-color: rgb(6, 75, 112) !important;
+}
+
+.disable_pagination {
+  pointer-events: none;
+}

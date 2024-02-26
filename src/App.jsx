@@ -14,6 +14,17 @@ function App() {
     }
   };
 
+  function selectPageHandler(selectedPage) {
+    console.log(selectedPage);
+    if (
+      selectedPage >= 1 &&
+      selectedPage <= products.length / 10 &&
+      selectedPage != page
+    ) {
+      setPage(selectedPage);
+    }
+  }
+
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -34,11 +45,31 @@ function App() {
         )}
         {products.length > 0 && (
           <div className="pagination">
-            <span>Prev</span>
+            <span
+              onClick={() => selectPageHandler(page - 1)}
+              className={page - 1 >= 1 ? "" : "disable_pagination"}
+            >
+              Prev
+            </span>
             {[...Array(products.length / 10)].map((_, i) => {
-              return <span key={i}>{i + 1}</span>;
+              return (
+                <span
+                  onClick={() => selectPageHandler(i + 1)}
+                  className={i + 1 === page ? "active" : ""}
+                  key={i}
+                >
+                  {i + 1}
+                </span>
+              );
             })}
-            <span>Next</span>
+            <span
+              onClick={() => selectPageHandler(page + 1)}
+              className={
+                page + 1 <= products.length / 10 ? "" : "disable_pagination"
+              }
+            >
+              Next
+            </span>
           </div>
         )}
       </div>
